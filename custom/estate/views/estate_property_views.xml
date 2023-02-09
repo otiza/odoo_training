@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="estate_model_view_search" model="ir.ui.view">
+        <field name="name">estate.view.search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Title"></field>
+                <field name="postcode" ></field>
+                <field name="expected_price" ></field>
+                <field name="bedrooms" ></field>
+                <field name="living_area" ></field>
+                <field name="facades" ></field>
+                <filter name="state" string="available" domain="[('state', '=', 'new')]" />
+                <filter name="postcode" string="postcode"  context="{'group_by': 'postcode'}" />
+                
+            
+            </search>
+        </field>
+    </record>
+
+    
+    <record id="estate_model_form" model="ir.ui.view">
+        <field name="name">estate.form</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="sell_property" class="oe_highlight"  type="object" string="Sold"></button>
+                    <button name="cancel_property" type="object" string="Cancel"></button>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name"></field>
+                        
+                    </h1>
+                    <field name="tag_ids" widget="many2many_tags"/>
+                    <group>
+                        <group>
+                            <field name="state"></field>
+                            <field name="property_type_id" string="Property Type"></field>
+                            <field name="postcode"></field>
+                            <field name="date_availability" string="Available From"></field>
+                            
+                        </group>
+                        <group>
+                            <field name="expected_price"></field>
+                            <field name="best_offer"></field>
+                            <field name="selling_price"></field>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <group>
+                                    <field name="description" string="Description"></field>
+                                    <field name="bedrooms"></field>
+                                    <field name="living_area"></field>
+                                    <field name="facades"></field>
+                                    <field name="garage"></field>
+                                    <field name="garden"></field>
+                                    <field name="garden_area" string="Garden area (sqm)"></field>
+                                    <field name="garden_orientation" string="Garden orientation"></field>
+                                    <field name="total_area" string="total area (sqm)"></field>
+                                </group>
+                            </page>
+                            <page string="offers">
+                                
+                                    <field name="offer_ids">
+                                        <tree>
+                                            <field name="price"></field>
+                                            <field name="partner_id" string="Partner"></field>
+                                            <field name="validity"></field>
+                                            <field name="date_deadline"></field>
+                                            <button name="accept_offer" type="object"  icon="fa-check"></button>
+                                            <button name="refuse_offer" type="object"  icon="fa-times"></button>
+                                            <field name="status"></field>
+                                            
+                                            
+
+                                        </tree>
+                                    </field> 
+                               
+                            </page>
+                            <page string="Other info">
+                                <group>
+                                    <field name="salesperson_id" string="Salesman"></field>
+                                    <field name="buyer_id"></field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="estate_model_tree" model="ir.ui.view">
+        <field name="name">estates.tree</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+             <tree string="estates">
+                 <field name="name" string="Title"/>
+                 <field name="postcode"/>
+                 <field name="bedrooms"/>
+                 <field name="living_area" string="Living area (sqm)"/>
+                 <field name="expected_price"/>
+                 <field name="selling_price"/>
+                 <field name="date_availability"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="estate_model_action" model="ir.actions.act_window">
+        <field name="name">estates</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
+    </record>   
+    
+  
+
+    <record id="type_model_action" model="ir.actions.act_window">
+        <field name="name">Property Types</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+    </record> 
+    
+    <record id="tag_model_action" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">estate.property.tag</field>
+        <field name="view_mode">tree,form</field>
+    </record> 
+</odoo>
